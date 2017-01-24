@@ -1,0 +1,8 @@
+<div class="inventory">
+	<div *ngFor="let seed of seeds;" class="item"   [ngClass]="{'active':seed.id == currentItem}">
+		<button class="button-select-seed" (click)="changeCurrentItem(seed)">seed #{{seed.id}}</button>
+		<input type="checkbox" [(ngModel)]="combineSeeds[seed.id]">
+	</div>
+</div>
+
+<button (click)="combine(combineSeeds)" class="button-combine">Combine</button>
