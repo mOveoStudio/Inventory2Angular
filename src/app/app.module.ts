@@ -7,12 +7,14 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { InventoryService } from "./inventory.service";
 import { GameComponent } from "./game/game.component";
 import { AppComponent } from "./app.component";
+import {ObjectValuesPipe} from "./object-values.pipe";
 
 @NgModule({
     declarations: [
         InventoryComponent,
         GameComponent,
-        AppComponent
+        AppComponent,
+        ObjectValuesPipe
     ],
     imports: [
         BrowserModule,

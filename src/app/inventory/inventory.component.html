@@ -1,6 +1,12 @@
 <div class="inventory">
-	<div *ngFor="let seed of seeds;" class="item"   [ngClass]="{'active':seed.id == currentItem}">
-		<button class="button-select-seed" (click)="changeCurrentItem(seed)">seed #{{seed.id}}</button>
+	<div *ngFor="let seed of seeds" class="item"   [ngClass]="{'active':seed.id == currentItem}">
+		<button class="button-select-seed" (click)="changeCurrentItem(seed)">
+			<img src="../../assets/images/seed.png" alt=""><br/>
+			seed #{{seed.id}}
+		</button>
+		<ul class="seeds-details">
+			<li *ngFor="let skill of seed.skills | objectValues">{{skill.name}}</li>
+		</ul>
 		<input type="checkbox" [(ngModel)]="combineSeeds[seed.id]">
 	</div>
 </div>

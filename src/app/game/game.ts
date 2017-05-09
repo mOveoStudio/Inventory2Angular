@@ -6,6 +6,8 @@ export class Game extends Phaser.Game{
     events = {
         onClick:null
     };
+
+
     constructor(){
         //noinspection TypeScriptValidateTypes
         super(800, 600, Phaser.AUTO, 'game-content', null);

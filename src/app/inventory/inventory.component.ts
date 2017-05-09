@@ -8,6 +8,7 @@ import {InventoryService} from "./../inventory.service";
 })
 export class InventoryComponent implements OnInit {
     private inventoryService:InventoryService;
+    private socket;
     currentItem:number;
     combineSeeds:{};
     seeds:{};
@@ -19,12 +20,14 @@ export class InventoryComponent implements OnInit {
     }
 
     ngOnInit():void {
+
         this.inventoryService.currentSeedIdChanged.subscribe(value=>this.currentItem = value);
-        this.inventoryService.seedsChanged.subscribe(seeds=>this.seeds = seeds);
+        this.inventoryService.seedsChanged.subscribe((seeds)=>{
+            console.log(seeds);
+            this.seeds = seeds
+        });
 
         this.currentItem = this.inventoryService.currentSeedId;
-
-        this.inventoryService.getSeedsList().then(seeds => this.seeds = seeds);
     }
 
     changeCurrentItem(item) {

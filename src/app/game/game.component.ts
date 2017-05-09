@@ -24,7 +24,7 @@ export class GameComponent implements OnInit{
     ngOnInit():void {
         this.game = new Game();
         this.game.events.onClick.add((e)=>{
-            console.log("Place seed #" + this.inventoryService.currentSeedId + " in {" + e.x + "," + e.y + "}");
+            this.inventoryService.addSeed(this.inventoryService.currentSeedId);
         })
     }
 }

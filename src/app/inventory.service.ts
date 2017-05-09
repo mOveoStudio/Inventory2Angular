@@ -1,16 +1,28 @@
 import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
+import * as io from 'socket.io-client';
 
 @Injectable()
 export class InventoryService {
 
     private _currentSeedId:number;
+    private _socket;
 
     private _currentSeedIdChanged = new Subject<number>();
     private _seedsChanged = new Subject<[any]>();
 
     public currentSeedIdChanged = this._currentSeedIdChanged.asObservable();
     public seedsChanged = this._seedsChanged.asObservable();
+
+    constructor(){
+        this._socket = io("http://localhost:3000");
+        this._socket.on('update-inventory', this.getSeeds.bind(this));
+    }
+
+    getSeeds(seeds){
+        console.log(seeds);
+        this._seedsChanged.next(seeds)
+    }
 
     get currentSeedId():number {
         return this._currentSeedId;
@@ -22,18 +34,11 @@ export class InventoryService {
     }
 
     combineSeed(seeds:number[]):void {
+        this._socket.emit('combineSeeds', seeds);
         console.log(seeds, this._currentSeedId);
     }
 
-    getSeedsList():Promise<any> {
-        return Promise.resolve([
-            {id: 0, name: "attack", nb: 4},
-            {id: 1, name: "victory", nb: 4},
-            {id: 2, name: "growth", nb: 4},
-            {id: 3, name: "fertility", nb: 4},
-            {id: 4, name: "growth", nb: 4},
-            {id: 5, name: "defense", nb: 2}
-        ]);
+    addSeed(cuurentSeed):void {
+        this._socket.emit('add-seed', cuurentSeed);
     }
-
 }
